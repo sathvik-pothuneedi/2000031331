@@ -7,12 +7,12 @@ const port = 3000;
 
 
 const ACCESS_CODE = 'nNPGsi';
-let AUTH_TOKEN = '';
+const AUTH_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODY1NTAwMzgsImNvbXBhbnlOYW1lIjoiVHJhaW4gQ2VudHJhbCIsImNsaWVudElEIjoiMzFiNDRlMWUtOTM4Mi00ZjE3LWFmZWQtNDI3ZGVlNThjOGE1Iiwib3duZXJOYW1lIjoiIiwib3duZXJFbWFpbCI6IiIsInJvbGxObyI6IjIwMDAwMzEzMzEifQ.UI3AOtrqf3S-9VVYfwJw1zfKk6llsTUhHBzrbfmuNgE';
 
 
 async function authenticate() {
   try {
-    const response = await axios.post('https://api.johndoerailways.com/auth', {
+    const response = await axios.post('http://104.211.219.98/train/auth', {
       accessCode: nNPGsi,
     });
     AUTH_TOKEN = response.data.token;
@@ -22,11 +22,11 @@ async function authenticate() {
   }
 }
 
-// Fetch train data from John Doe Railways API
+
 async function fetchTrainData() {
   try {
     const response = await axios.get(
-      'https://api.johndoerailways.com/trains',
+      'http://104.211.219.98/train/trains',
       {
         headers: {
           Authorization: Bearer ${AUTH_TOKEN},
@@ -40,7 +40,7 @@ async function fetchTrainData() {
   }
 }
 
-// Process and filter train data based on the given criteria
+
 function processTrainData(trainData) {
   const currentTime = moment();
   const twelveHoursLater = moment().add(12, 'hours');
@@ -63,14 +63,14 @@ function processTrainData(trainData) {
   return filteredTrains;
 }
 
-// Route handler for '/trains' endpoint
+
 app.get('/trains', async (req, res) => {
   const trainData = await fetchTrainData();
   const processedData = processTrainData(trainData);
   res.json(processedData);
 });
 
-// Initialize the server
+
 app.listen(port, () => {
   console.log(Server is running on port ${port});
   authenticate();
