@@ -3,11 +3,11 @@ const axios = require('axios');
 const moment = require('moment');
 
 const app = express();
-const port = 3000;
+const port = 3001;
 
 
 const ACCESS_CODE = 'nNPGsi';
-const AUTH_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODY1NTAwMzgsImNvbXBhbnlOYW1lIjoiVHJhaW4gQ2VudHJhbCIsImNsaWVudElEIjoiMzFiNDRlMWUtOTM4Mi00ZjE3LWFmZWQtNDI3ZGVlNThjOGE1Iiwib3duZXJOYW1lIjoiIiwib3duZXJFbWFpbCI6IiIsInJvbGxObyI6IjIwMDAwMzEzMzEifQ.UI3AOtrqf3S-9VVYfwJw1zfKk6llsTUhHBzrbfmuNgE';
+const AUTH_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODY1NTQzMzUsImNvbXBhbnlOYW1lIjoiVHJhaW4gQ2VudHJhbCIsImNsaWVudElEIjoiMzFiNDRlMWUtOTM4Mi00ZjE3LWFmZWQtNDI3ZGVlNThjOGE1Iiwib3duZXJOYW1lIjoiIiwib3duZXJFbWFpbCI6IiIsInJvbGxObyI6IjIwMDAwMzEzMzEifQ.SY6Ih6ceuH3A-c5pyY-m6RTFqIQTOJVfpDRmKe1VsZM';
 
 
 async function authenticate() {
@@ -29,7 +29,7 @@ async function fetchTrainData() {
       'http://104.211.219.98/train/trains',
       {
         headers: {
-          Authorization: Bearer ${AUTH_TOKEN},
+          Authorization: Bearer `${AUTH_TOKEN}`,
         },
       }
     );
@@ -72,6 +72,6 @@ app.get('/trains', async (req, res) => {
 
 
 app.listen(port, () => {
-  console.log(Server is running on port ${port});
+  console.log(`Server is running on port ${port}`);
   authenticate();
 });
